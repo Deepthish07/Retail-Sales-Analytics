@@ -1,0 +1,56 @@
+// ===========================================================
+// Power BI DAX Measures
+// Paste these into your Power BI Desktop model
+// ===========================================================
+
+// Total Revenue
+Total Revenue = SUM(sales[total_amount])
+
+// Total Units Sold
+Total Units = SUM(sales[quantity])
+
+// Average Order Value
+AOV = DIVIDE([Total Revenue], DISTINCTCOUNT(sales[sale_id]), 0)
+
+// Gross Profit
+Gross Profit = SUMX(sales, sales[total_amount] - (sales[total_amount] * 0.60))
+
+// 6-Month Rolling Average (per product)
+Revenue 6M Avg =
+CALCULATE(
+    AVERAGEX(
+        SUMMARIZE(sales, 'Date'[Month], "Rev", [Total Revenue]),
+        [Rev]
+    ),
+    DATESINPERIOD('Date'[Date], MAX('Date'[Date]), -6, MONTH)
+)
+
+// Stock Coverage Days
+Stock Coverage Days =
+DIVIDE(
+    SUM(inventory[stock_qty]),
+    CALCULATE([Total Units] / 30, DATESINPERIOD('Date'[Date], MAX('Date'[Date]), -30, DAY))
+)
+
+// Top 10 Products
+Top 10 Products Revenue =
+CALCULATE(
+    [Total Revenue],
+    TOPN(10, ALL(products[product_name]), [Total Revenue], DESC)
+)
+
+// Low Stock Alert Count
+Critical SKUs =
+COUNTROWS(
+    FILTER(
+        products,
+        [Stock Coverage Days] < 14
+    )
+)
+
+// YoY Growth
+YoY Revenue Growth =
+DIVIDE(
+    [Total Revenue] - CALCULATE([Total Revenue], SAMEPERIODLASTYEAR('Date'[Date])),
+    CALCULATE([Total Revenue], SAMEPERIODLASTYEAR('Date'[Date]))
+)

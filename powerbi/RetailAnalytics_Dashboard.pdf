@@ -1,0 +1,51 @@
+Power BI Dashboard Design - Reference
+=====================================
+
+Pages & Visuals
+---------------
+
+[ Page 1: Executive Summary ]
+- KPI Card: YTD Revenue
+- KPI Card: YTD Units Sold
+- KPI Card: AOV (Average Order Value)
+- KPI Card: Critical Stock SKUs
+- Line chart: Monthly Revenue Trend (last 24 months)
+- Bar chart: Revenue by Category
+- Forecast line (next 3 months) with confidence band
+
+[ Page 2: Product Performance ]
+- Table: Top 20 Selling Products
+- Table: Low Selling Products
+- Treemap: Revenue by Product
+- Slicer: Category
+- Slicer: Date range
+
+[ Page 3: Inventory & Stock Coverage ]
+- Table: Stock coverage per product
+- Conditional formatting: days_of_cover (red < 14, yellow < 30, green > 30)
+- Bar chart: Days of cover by product
+- Donut chart: Stock status distribution (OK / LOW / CRITICAL / NO_SALES)
+
+[ Page 4: Forecasts ]
+- Line chart: Total revenue forecast with upper/lower bounds
+- Matrix: Per-product 3-month forecast
+- Slicer: Product
+
+Data Sources (PostgreSQL)
+-------------------------
+- vw_top_selling_products
+- vw_low_selling_products
+- vw_stock_coverage
+- vw_six_month_avg
+- vw_monthly_revenue
+- forecast_total_revenue
+- forecast_product_revenue
+
+Steps in Power BI Desktop
+-------------------------
+1. Get Data -> PostgreSQL database
+2. Provide host, database, and credentials
+3. Select the views listed above and load
+4. Import the DAX measures from dashboard_measures.dax
+5. Build the visuals per the layout above
+6. Publish to Power BI Service and schedule a daily refresh
