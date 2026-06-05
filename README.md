@@ -81,6 +81,14 @@ RetailSalesAnalytics/
    - Connect Power BI Desktop to your PostgreSQL database
    - Import the views from `sql/03_views.sql`
 
+## Business Impact
+
+- Automated sales reporting
+- Reduced manual analysis effort
+- Enabled inventory monitoring
+- Generated sales forecasts
+- Automated executive email summaries
+
 ## Scheduling
 
 Use `scripts/schedule_daily.bat` with Windows Task Scheduler to run the pipeline daily at a fixed time.
