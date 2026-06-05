@@ -218,6 +218,6 @@ This project demonstrates how analytics automation can:
 
 ## Author
 
-Deepthish Raj
+Deepthish
 
 Data Analytics | Data Science | Analytics Engineering | Business Intelligence
